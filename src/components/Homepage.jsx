@@ -8,7 +8,7 @@ import {Cryptocurrencies, News} from '../components'
 const { Title } = Typography;
 
 const Homepage = () => {
-  const { data, isFetching } = useGetCryptosQuery()
+  const { data, isFetching } = useGetCryptosQuery(10)
   console.log(data)
   const globalStats = data?.data?.stats;
 
@@ -55,7 +55,7 @@ const Homepage = () => {
           <Link to="/cryptocurrencies">Show More</Link>
         </Title>
       </div>
-      <Cryptocurrencies simplified/>
+      <Cryptocurrencies simplified />
       <div className="home-heading-container">
         <Title level={2} className="home-title">
           Top 10 Cryptocurrencies in the world
