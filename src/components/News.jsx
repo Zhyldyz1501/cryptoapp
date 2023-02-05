@@ -13,11 +13,14 @@ const { Option } = Select;
 const News = ({ simplified }) => {
   const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
 
-  const { data: cryptoNews } = useGetCryptoNewsQuery({ newsCategory, count: simplified ? 6 : 12 })
+  const { data: cryptoNews } = useGetCryptoNewsQuery({
+    newsCategory, count: simplified ? 
+    10  : 20
+  })
   const { data } = useGetCryptosQuery(100);
   
   console.log(cryptoNews)
-  if (!cryptoNews?.data) return 'Loading ...'
+  if (!cryptoNews) return 'Loading ...'
   
   return (
     <>
@@ -40,12 +43,12 @@ const News = ({ simplified }) => {
             </Select>
           </Col>
         )}
-        {cryptoNews.data.map((news, i) => (
+        {cryptoNews.map((news, i) => (
           <Col xs={24} sm={12} lg={8} key={i}>
             <Card hoverable className="news-card">
               <div className="news-image-container">
                 <Title className="news-title" level={4}>
-                  {news.Name}
+                  {news.title}
                 </Title>
                 <img
                   src={demoImage}
@@ -55,11 +58,10 @@ const News = ({ simplified }) => {
               </div>
               <div>
                 <Text style={{ margin: "5 5 5 10", fontSize: "18px" }}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Molestias, nostrum! Lorem ipsum dolor sit amet.
+                  {news.description}
                 </Text>
               </div>
-              <Text>{moment(news.Time).startOf("ss").fromNow()}</Text>
+              <Text>{moment(news.date).startOf("ss").fromNow()}</Text>
             </Card>
           </Col>
         ))}
